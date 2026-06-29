@@ -28,7 +28,7 @@ class Game:
         self.food.draw(screen)
         if self.game_over:
             font = pygame.font.SysFont(None, 48)
-            text = font.render("Game Over! Press R to Restart", True, (255, 0, 0))
+            text = font.render("Game Over!", True, (255, 0, 0))
             text_rect = text.get_rect(center=(275, 250))
             screen.blit(text, text_rect)
         
