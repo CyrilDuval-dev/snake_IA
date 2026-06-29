@@ -34,9 +34,10 @@ class Snake:
 
     def draw(self, screen):
         for segment in self.body:
+            blue_degrade = (self.color[0], self.color[1], max(110, self.color[2] - 5 * self.body.index(segment)))
             if segment == self.body[0]:
-                cell_rect = pygame.Rect(segment.column * 30 +20, segment.row * 30+60, 30, 30)
-                pygame.draw.rect(screen, self.color, cell_rect, border_radius=5)
+                cell_rect = pygame.Rect(segment.column * 30 + 20, segment.row * 30 + 60, 30, 30)
+                pygame.draw.rect(screen, blue_degrade, cell_rect, border_radius=5)
                 if self.direction == "UP":
                     eye1 = (segment.column * 30 + 30, segment.row * 30 + 70)
                     eye2 = (segment.column * 30 + 50, segment.row * 30 + 70)
@@ -53,4 +54,4 @@ class Snake:
                 pygame.draw.circle(screen, Colors.white, eye2, 5)
             else:
                 cell_rect = pygame.Rect(segment.column * 30 +20, segment.row * 30+60, 30, 30)
-                pygame.draw.rect(screen, self.color, cell_rect, border_radius=0)
+                pygame.draw.rect(screen, blue_degrade, cell_rect, border_radius=0)

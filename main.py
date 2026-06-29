@@ -15,6 +15,8 @@ game = Game()
 GAME_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(GAME_UPDATE, 200)
 
+apple_image = pygame.image.load("assets/images/apple.png").convert_alpha()
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
@@ -42,7 +44,7 @@ while True:
 
     screen.fill(Colors.dark_green)
     game.draw(screen)
-    pygame.draw.circle(screen, Colors.red, (50,30), 15)
+    screen.blit(pygame.transform.scale(apple_image, (30, 30)), (20, 15))
     score_value_surface = title_font.render(str(game.score), True, Colors.white)
     screen.blit(score_value_surface, (80, 17))
     pygame.display.update()

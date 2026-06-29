@@ -2,8 +2,8 @@ from colors import Colors
 from position import Position
 import pygame
 import random
-
 class Food:
+
     def __init__(self,snake_body):
         self.position = self.random_position(snake_body)
         self.color = Colors.red
@@ -17,5 +17,8 @@ class Food:
                 return position
 
     def draw(self, screen):
-        pygame.draw.circle(screen, self.color, (self.position.column * 30 + 35, self.position.row * 30 + 75), 15)
+
+        image = pygame.image.load("assets/images/apple.png").convert_alpha()
+        screen.blit(pygame.transform.scale(image, (30 , 30)), (self.position.column * 30 + 20, self.position.row * 30 + 60))
+
         
