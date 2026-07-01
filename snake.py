@@ -34,7 +34,7 @@ class Snake:
 
     def draw(self, screen):
         for segment in self.body:
-            blue_degrade = (self.color[0], self.color[1], max(110, self.color[2] - 5 * self.body.index(segment)))
+            blue_degrade = (self.color[0], self.color[1], max(110, self.color[2] - 8 * self.body.index(segment)))
             if segment == self.body[0]:
                 cell_rect = pygame.Rect(segment.column * 30 + 20, segment.row * 30 + 60, 30, 30)
                 pygame.draw.rect(screen, blue_degrade, cell_rect, border_radius=5)

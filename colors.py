@@ -5,7 +5,8 @@ class Colors:
     blue = (73, 119, 237)
     dark_green = (86, 138, 52)
     white = (255, 255, 255)
+    blue_sky = (77,193,248)
 
     @classmethod
     def get_cell_colors(cls):
-        return [cls.green, cls.light_green, cls.red, cls.blue, cls.dark_green]
+        return [cls.green, cls.light_green, cls.red, cls.blue, cls.dark_green, cls.blue_sky, cls.white]

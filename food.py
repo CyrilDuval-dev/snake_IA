@@ -12,9 +12,8 @@ class Food:
         while True:
             row = random.randint(0, 14)
             column = random.randint(0, 16)
-            position = Position(row, column)
-            if position not in snake_body:
-                return position
+            if Position(row, column) not in snake_body:
+                return Position(row, column)
 
     def draw(self, screen):
 
