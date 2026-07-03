@@ -6,6 +6,7 @@ class Colors:
     dark_green = (86, 138, 52)
     white = (255, 255, 255)
     blue_sky = (77,193,248)
+    dark_purple = (128, 0, 128)
 
     @classmethod
     def get_cell_colors(cls):

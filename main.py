@@ -2,6 +2,7 @@ import pygame
 from food import Food
 from game import Game
 from colors import Colors
+from ai import SnakeAI
 
 pygame.init()
 
@@ -11,6 +12,8 @@ screen = pygame.display.set_mode((550,540))
 
 clock = pygame.time.Clock()
 game = Game()
+ai = SnakeAI(game.grid)
+ai_mode = False
 
 GAME_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(GAME_UPDATE, 200)
@@ -18,6 +21,7 @@ pygame.time.set_timer(GAME_UPDATE, 200)
 image_snake = pygame.image.load("assets/images/snake_menu.png").convert_alpha()
 image_trophy = pygame.image.load("assets/images/trophy.png").convert_alpha()
 icon_play = pygame.image.load("assets/images/play_icon.png").convert_alpha()
+icon_ai = pygame.image.load("assets/images/robot.png").convert_alpha()
 
 
 game_start = False
@@ -51,6 +55,11 @@ while True:
                             game.snake.sound_rotation.play()
                         game.snake.direction = "RIGHT"
                 elif event.type == GAME_UPDATE and not game.game_over:
+                    if ai_mode:
+                        new_direction = ai.get_next_direction(game.snake, game.food)
+                        if new_direction and new_direction != game.snake.direction:
+                            game.snake.sound_rotation.play()
+                            game.snake.direction = new_direction
                     game.snake.move()
                     if game.snake.eating(game.food.position):
                         game.snake.grow()
@@ -102,8 +111,21 @@ while True:
         btn_play_text = title_font.render("Jouer", True, Colors.white)
         screen.blit(btn_play_text, (250, 370))
 
+        btn_ai = pygame.draw.rect(screen, Colors.dark_purple, (150, 420, 250, 50), border_radius=10)
+        screen.blit(pygame.transform.scale(icon_ai, (30, 30)), (180, 430))
+        btn_ai_text = title_font.render("IA", True, Colors.white)
+        btn_ai_text_rect = btn_ai_text.get_rect(center=btn_ai.center)
+        screen.blit(btn_ai_text, btn_ai_text_rect)
+
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and btn_play.collidepoint(event.pos):
             game_start = True
+            ai_mode = False
+            game.reset()
+
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and btn_ai.collidepoint(event.pos):
+            game_start = True
+            ai_mode = True
+            can_move = True
             game.reset()
 
     pygame.display.update()
