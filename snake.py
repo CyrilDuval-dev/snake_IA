@@ -8,6 +8,9 @@ class Snake:
         self.body = [Position(7, 5), Position(7, 4), Position(7, 3)]
         self.direction = "RIGHT"
         self.color = Colors.blue
+        self.sound_rotation = pygame.mixer.Sound("assets/sounds/move.mp3")
+        self.sound_eat = pygame.mixer.Sound("assets/sounds/food.mp3")
+        
 
     def move(self):
         head = self.body[0]
@@ -31,6 +34,7 @@ class Snake:
     def grow(self):
         tail = self.body[-1]
         self.body.append(Position(tail.row, tail.column)) 
+        self.sound_eat.play()
 
     def draw(self, screen):
         for segment in self.body:

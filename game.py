@@ -7,7 +7,7 @@ class Game:
     def __init__(self):
         self.grid = Grid()
         self.snake = Snake()
-        self.food = Food(snake_body=self.snake.body)
+        self.food = Food(self.snake.body)
         self.game_over = False
         self.score = 0
     

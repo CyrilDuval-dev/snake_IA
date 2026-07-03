@@ -15,11 +15,10 @@ game = Game()
 GAME_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(GAME_UPDATE, 200)
 
-apple_image = pygame.image.load("assets/images/apple.png").convert_alpha()
 image_snake = pygame.image.load("assets/images/snake_menu.png").convert_alpha()
-image_apple = pygame.image.load("assets/images/apple.png").convert_alpha()
 image_trophy = pygame.image.load("assets/images/trophy.png").convert_alpha()
 icon_play = pygame.image.load("assets/images/play_icon.png").convert_alpha()
+
 
 game_start = False
 can_move = False
@@ -36,12 +35,20 @@ while True:
                     if event.key == pygame.K_r:
                         game.reset()
                     if event.key == pygame.K_UP and game.snake.direction != "DOWN":
+                        if game.snake.direction != "UP":
+                            game.snake.sound_rotation.play()
                         game.snake.direction = "UP"
                     if event.key == pygame.K_DOWN and game.snake.direction != "UP":
+                        if game.snake.direction != "DOWN":
+                            game.snake.sound_rotation.play()
                         game.snake.direction = "DOWN"
                     if event.key == pygame.K_LEFT and game.snake.direction != "RIGHT":
+                        if game.snake.direction != "LEFT":
+                            game.snake.sound_rotation.play()
                         game.snake.direction = "LEFT"
                     if event.key == pygame.K_RIGHT and game.snake.direction != "LEFT":
+                        if game.snake.direction != "RIGHT":
+                            game.snake.sound_rotation.play()
                         game.snake.direction = "RIGHT"
                 elif event.type == GAME_UPDATE and not game.game_over:
                     game.snake.move()
@@ -69,7 +76,7 @@ while True:
 
     screen.fill(Colors.dark_green)
     game.draw(screen)
-    screen.blit(pygame.transform.scale(apple_image, (30, 30)), (20, 15))
+    screen.blit(pygame.transform.scale(game.food.image_apple, (30, 30)), (20, 15))
     score_value_surface = title_font.render(str(game.score), True, Colors.white)
     screen.blit(score_value_surface, (80, 17))
 
@@ -83,7 +90,7 @@ while True:
         pygame.draw.rect(overlay, Colors.blue_sky, (150, 40, 250, 300), border_radius=10)
         screen.blit(overlay, (0, 0))
         screen.blit(pygame.transform.scale(image_snake, (250, 300)), (150, 40))
-        screen.blit(pygame.transform.scale(image_apple, (40,40)), (200, 80))
+        screen.blit(pygame.transform.scale(game.food.image_apple, (40,40)), (200, 80))
         score_apple_surface = title_font.render(str(game.score), True, Colors.white)
         screen.blit(score_apple_surface, (210, 140))
         screen.blit(pygame.transform.scale(image_trophy, (50,50)), (320, 80))
