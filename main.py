@@ -22,11 +22,13 @@ image_snake = pygame.image.load("assets/images/snake_menu.png").convert_alpha()
 image_trophy = pygame.image.load("assets/images/trophy.png").convert_alpha()
 icon_play = pygame.image.load("assets/images/play_icon.png").convert_alpha()
 icon_ai = pygame.image.load("assets/images/robot.png").convert_alpha()
+image_fleche = pygame.image.load("assets/images/fleche.png").convert_alpha()
 
 
 game_start = False
 can_move = False
 high_score = 0
+ai_mode = False
 
 while True:
     for event in pygame.event.get():
@@ -89,6 +91,14 @@ while True:
     score_value_surface = title_font.render(str(game.score), True, Colors.white)
     screen.blit(score_value_surface, (80, 17))
 
+    if ai_mode:
+        text_ai = title_font.render("Mode IA activé", True, Colors.white)
+        screen.blit(text_ai, (200, 17))
+        if direction := ai.get_next_direction(game.snake, game.food):
+            arrow_image = pygame.transform.rotate(image_fleche, {"UP": 90, "DOWN": -90, "LEFT": 180, "RIGHT": 0}[direction])
+            screen.blit(arrow_image, (440, 8))
+
+
     if not can_move and game_start:
         text_move = title_font.render("Utiliser les flèches pour bouger", True, Colors.white)
         screen.blit(text_move, (50, 200))
@@ -116,6 +126,7 @@ while True:
         btn_ai_text = title_font.render("IA", True, Colors.white)
         btn_ai_text_rect = btn_ai_text.get_rect(center=btn_ai.center)
         screen.blit(btn_ai_text, btn_ai_text_rect)
+        
 
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and btn_play.collidepoint(event.pos):
             game_start = True
